@@ -1,85 +1,150 @@
 
 import React, { useState, useEffect } from 'react';
 import { Sun, Cloud, CloudRain, Snowflake } from 'lucide-react';
+import WeatherController from './WeatherController';
 
 interface WeatherEffect {
   name: string;
   icon: React.ReactNode;
   particles: string;
   overlay: string;
+  backgroundOverlay: string;
   duration: number;
+  particleCount: number;
 }
 
 const weatherEffects: WeatherEffect[] = [
   {
     name: 'sunny',
-    icon: <Sun className="w-8 h-8 text-yellow-400" />,
+    icon: <Sun className="w-6 h-6 text-yellow-300" />,
     particles: 'sun-rays',
-    overlay: 'bg-gradient-to-br from-yellow-400/20 via-orange-300/10 to-transparent',
-    duration: 8000,
+    overlay: 'bg-gradient-to-br from-yellow-300/30 via-orange-200/20 to-amber-100/10',
+    backgroundOverlay: 'sepia(30%) saturate(150%) hue-rotate(15deg) brightness(1.2) contrast(1.1)',
+    duration: 10000,
+    particleCount: 25,
   },
   {
     name: 'rainy',
-    icon: <CloudRain className="w-8 h-8 text-blue-400" />,
+    icon: <CloudRain className="w-6 h-6 text-slate-300" />,
     particles: 'rain-drops',
-    overlay: 'bg-gradient-to-br from-blue-900/30 via-gray-700/20 to-transparent',
-    duration: 6000,
+    overlay: 'bg-gradient-to-br from-slate-700/40 via-blue-900/30 to-gray-800/20',
+    backgroundOverlay: 'sepia(10%) saturate(80%) hue-rotate(200deg) brightness(0.7) contrast(1.3)',
+    duration: 8000,
+    particleCount: 80,
   },
   {
     name: 'cloudy',
-    icon: <Cloud className="w-8 h-8 text-gray-300" />,
+    icon: <Cloud className="w-6 h-6 text-gray-200" />,
     particles: 'mist',
-    overlay: 'bg-gradient-to-br from-gray-600/25 via-gray-400/15 to-transparent',
-    duration: 7000,
+    overlay: 'bg-gradient-to-br from-gray-500/30 via-slate-400/20 to-gray-300/15',
+    backgroundOverlay: 'sepia(5%) saturate(70%) hue-rotate(180deg) brightness(0.9) contrast(0.9)',
+    duration: 12000,
+    particleCount: 15,
   },
   {
     name: 'snowy',
-    icon: <Snowflake className="w-8 h-8 text-blue-200" />,
+    icon: <Snowflake className="w-6 h-6 text-blue-100" />,
     particles: 'snowflakes',
-    overlay: 'bg-gradient-to-br from-blue-200/20 via-white/10 to-transparent',
+    overlay: 'bg-gradient-to-br from-blue-100/25 via-white/15 to-cyan-50/10',
+    backgroundOverlay: 'sepia(5%) saturate(50%) hue-rotate(180deg) brightness(1.1) contrast(1.2)',
     duration: 9000,
+    particleCount: 50,
   },
 ];
 
-const WeatherEffects = () => {
+interface WeatherEffectsProps {
+  onWeatherChange?: (weather: WeatherEffect) => void;
+}
+
+const WeatherEffects = ({ onWeatherChange }: WeatherEffectsProps) => {
   const [currentWeather, setCurrentWeather] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [autoMode, setAutoMode] = useState(true);
+
+  const weather = weatherEffects[currentWeather];
 
   useEffect(() => {
+    if (onWeatherChange) {
+      onWeatherChange(weather);
+    }
+  }, [currentWeather, onWeatherChange, weather]);
+
+  useEffect(() => {
+    if (!autoMode) return;
+
     const interval = setInterval(() => {
       setIsTransitioning(true);
       setTimeout(() => {
         setCurrentWeather((prev) => (prev + 1) % weatherEffects.length);
         setIsTransitioning(false);
-      }, 500);
-    }, weatherEffects[currentWeather].duration);
+      }, 800);
+    }, weather.duration);
 
     return () => clearInterval(interval);
-  }, [currentWeather]);
+  }, [currentWeather, autoMode, weather.duration]);
 
-  const weather = weatherEffects[currentWeather];
+  const handleManualWeatherChange = (index: number) => {
+    if (index === currentWeather) return;
+    
+    setAutoMode(false);
+    setIsTransitioning(true);
+    
+    setTimeout(() => {
+      setCurrentWeather(index);
+      setIsTransitioning(false);
+      
+      // Resume auto mode after 30 seconds
+      setTimeout(() => {
+        setAutoMode(true);
+      }, 30000);
+    }, 500);
+  };
 
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden">
-      {/* Weather overlay */}
+      {/* Weather Controller */}
+      <div className="pointer-events-auto">
+        <WeatherController
+          currentWeather={currentWeather}
+          onWeatherChange={handleManualWeatherChange}
+          weatherEffects={weatherEffects}
+        />
+      </div>
+
+      {/* Enhanced Weather overlay */}
       <div 
         className={`absolute inset-0 transition-all duration-1000 ${weather.overlay} ${
           isTransitioning ? 'opacity-0' : 'opacity-100'
         }`} 
       />
 
-      {/* Weather particles */}
+      {/* Intense Weather particles */}
       <div className={`absolute inset-0 ${weather.particles}`}>
         {weather.name === 'rainy' && (
           <>
-            {[...Array(50)].map((_, i) => (
+            {[...Array(weather.particleCount)].map((_, i) => (
               <div
                 key={`rain-${i}`}
-                className="absolute w-0.5 h-8 bg-blue-300/60 rain-drop"
+                className="absolute bg-blue-200/70 enhanced-rain-drop"
                 style={{
                   left: `${Math.random() * 100}%`,
+                  width: `${1 + Math.random() * 2}px`,
+                  height: `${15 + Math.random() * 25}px`,
                   animationDelay: `${Math.random() * 2}s`,
-                  animationDuration: `${0.5 + Math.random() * 0.5}s`
+                  animationDuration: `${0.3 + Math.random() * 0.4}s`
+                }}
+              />
+            ))}
+            
+            {/* Rain splash effects */}
+            {[...Array(20)].map((_, i) => (
+              <div
+                key={`splash-${i}`}
+                className="absolute w-3 h-3 bg-blue-300/40 rounded-full rain-splash"
+                style={{
+                  left: `${Math.random() * 100}%`,
+                  bottom: `${Math.random() * 10}%`,
+                  animationDelay: `${Math.random() * 3}s`,
                 }}
               />
             ))}
@@ -88,14 +153,16 @@ const WeatherEffects = () => {
 
         {weather.name === 'snowy' && (
           <>
-            {[...Array(30)].map((_, i) => (
+            {[...Array(weather.particleCount)].map((_, i) => (
               <div
                 key={`snow-${i}`}
-                className="absolute w-2 h-2 bg-white/80 rounded-full snowflake"
+                className="absolute bg-white/90 rounded-full enhanced-snowflake"
                 style={{
                   left: `${Math.random() * 100}%`,
-                  animationDelay: `${Math.random() * 3}s`,
-                  animationDuration: `${3 + Math.random() * 2}s`
+                  width: `${2 + Math.random() * 4}px`,
+                  height: `${2 + Math.random() * 4}px`,
+                  animationDelay: `${Math.random() * 5}s`,
+                  animationDuration: `${4 + Math.random() * 3}s`
                 }}
               />
             ))}
@@ -104,15 +171,48 @@ const WeatherEffects = () => {
 
         {weather.name === 'sunny' && (
           <>
-            {[...Array(20)].map((_, i) => (
+            {[...Array(weather.particleCount)].map((_, i) => (
               <div
                 key={`ray-${i}`}
-                className="absolute w-1 h-20 bg-yellow-300/30 sun-ray"
+                className="absolute bg-yellow-200/40 enhanced-sun-ray"
+                style={{
+                  left: `${Math.random() * 100}%`,
+                  top: `${Math.random() * 50}%`,
+                  width: `${1 + Math.random()}px`,
+                  height: `${30 + Math.random() * 40}px`,
+                  transform: `rotate(${Math.random() * 360}deg)`,
+                  animationDelay: `${Math.random() * 6}s`,
+                }}
+              />
+            ))}
+
+            {/* Sun glint effects */}
+            {[...Array(8)].map((_, i) => (
+              <div
+                key={`glint-${i}`}
+                className="absolute w-2 h-2 bg-yellow-300/60 rounded-full sun-glint"
+                style={{
+                  left: `${10 + Math.random() * 80}%`,
+                  top: `${10 + Math.random() * 40}%`,
+                  animationDelay: `${Math.random() * 4}s`,
+                }}
+              />
+            ))}
+          </>
+        )}
+
+        {weather.name === 'cloudy' && (
+          <>
+            {[...Array(weather.particleCount)].map((_, i) => (
+              <div
+                key={`mist-${i}`}
+                className="absolute bg-gray-300/20 rounded-full mist-particle"
                 style={{
                   left: `${Math.random() * 100}%`,
                   top: `${Math.random() * 100}%`,
-                  transform: `rotate(${Math.random() * 360}deg)`,
-                  animationDelay: `${Math.random() * 4}s`,
+                  width: `${20 + Math.random() * 40}px`,
+                  height: `${20 + Math.random() * 40}px`,
+                  animationDelay: `${Math.random() * 8}s`,
                 }}
               />
             ))}
@@ -120,11 +220,16 @@ const WeatherEffects = () => {
         )}
       </div>
 
-      {/* Weather indicator */}
+      {/* Enhanced Weather indicator */}
       <div className="absolute top-8 right-8 z-20">
         <div className={`transition-all duration-500 ${isTransitioning ? 'scale-0 opacity-0' : 'scale-100 opacity-100'}`}>
-          <div className="backdrop-blur-lg bg-white/10 rounded-full p-3 border border-white/20">
-            {weather.icon}
+          <div className="backdrop-blur-xl bg-white/15 rounded-full p-4 border border-white/30 shadow-xl">
+            <div className="flex items-center gap-3">
+              {weather.icon}
+              <span className="text-white/90 font-medium capitalize text-sm">
+                {weather.name}
+              </span>
+            </div>
           </div>
         </div>
       </div>

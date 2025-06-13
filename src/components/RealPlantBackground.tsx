@@ -1,101 +1,128 @@
 
 import React from 'react';
 
-const RealPlantBackground = () => {
+interface RealPlantBackgroundProps {
+  weatherFilter?: string;
+}
+
+const RealPlantBackground = ({ weatherFilter = 'sepia(20%) saturate(120%) hue-rotate(90deg)' }: RealPlantBackgroundProps) => {
   return (
     <div className="absolute inset-0 overflow-hidden">
-      {/* Background plant images */}
+      {/* Enhanced background plant images */}
       <div className="absolute inset-0">
-        {/* Main forest backdrop */}
+        {/* Main forest backdrop - High resolution, clear */}
         <div 
-          className="absolute inset-0 opacity-40"
+          className="absolute inset-0 opacity-60 transition-all duration-1000"
           style={{
             backgroundImage: `url('https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80')`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            filter: 'sepia(20%) saturate(120%) hue-rotate(90deg)'
+            filter: weatherFilter
           }}
         />
         
-        {/* Layered plant imagery for depth */}
+        {/* Layered realistic forest imagery for depth */}
         <div 
-          className="absolute inset-0 opacity-30"
+          className="absolute inset-0 opacity-40 transition-all duration-1000"
           style={{
             backgroundImage: `url('https://images.unsplash.com/photo-1518495973542-4542c06a5843?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80')`,
             backgroundSize: 'cover',
             backgroundPosition: 'center bottom',
-            filter: 'sepia(10%) saturate(110%) hue-rotate(75deg)'
+            filter: weatherFilter
           }}
         />
-      </div>
 
-      {/* Floating real plant elements */}
-      <div className="absolute top-20 left-10 real-plant-1">
+        {/* Additional forest layer for ultra-realism */}
         <div 
-          className="w-32 h-32 rounded-full opacity-25"
+          className="absolute inset-0 opacity-25 transition-all duration-1000"
           style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80')`,
+            backgroundImage: `url('https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80')`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            filter: 'sepia(30%) saturate(140%) hue-rotate(60deg)'
+            filter: weatherFilter
           }}
         />
       </div>
 
-      <div className="absolute top-40 right-16 real-plant-2">
+      {/* Enhanced floating real plant elements with better clarity */}
+      <div className="absolute top-16 left-8 real-plant-1 transition-all duration-1000">
         <div 
-          className="w-40 h-40 rounded-full opacity-20"
+          className="w-40 h-40 rounded-full opacity-35"
           style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80')`,
+            backgroundImage: `url('https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80')`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            filter: 'sepia(20%) saturate(130%) hue-rotate(80deg)'
+            filter: weatherFilter
           }}
         />
       </div>
 
-      <div className="absolute bottom-32 left-20 real-plant-3">
+      <div className="absolute top-32 right-12 real-plant-2 transition-all duration-1000">
         <div 
-          className="w-36 h-36 rounded-full opacity-30"
+          className="w-48 h-48 rounded-full opacity-30"
           style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1472396961693-142e6e269027?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80')`,
+            backgroundImage: `url('https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80')`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            filter: 'sepia(25%) saturate(120%) hue-rotate(70deg)'
+            filter: weatherFilter
           }}
         />
       </div>
 
-      {/* Additional layered foliage for mobile */}
-      <div className="absolute top-80 right-8 real-plant-4 sm:hidden">
+      <div className="absolute bottom-28 left-16 real-plant-3 transition-all duration-1000">
         <div 
-          className="w-24 h-24 rounded-full opacity-25"
+          className="w-44 h-44 rounded-full opacity-40"
           style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80')`,
+            backgroundImage: `url('https://images.unsplash.com/photo-1472396961693-142e6e269027?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80')`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            filter: 'sepia(20%) saturate(125%) hue-rotate(85deg)'
+            filter: weatherFilter
           }}
         />
       </div>
 
-      {/* Organic light rays through trees */}
+      <div className="absolute top-72 right-6 real-plant-4 transition-all duration-1000">
+        <div 
+          className="w-36 h-36 rounded-full opacity-25"
+          style={{
+            backgroundImage: `url('https://images.unsplash.com/photo-1518495973542-4542c06a5843?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            filter: weatherFilter
+          }}
+        />
+      </div>
+
+      {/* Enhanced organic light rays through trees */}
       <div className="absolute inset-0 pointer-events-none">
-        {[...Array(8)].map((_, i) => (
+        {[...Array(12)].map((_, i) => (
           <div
             key={`light-ray-${i}`}
-            className="absolute bg-gradient-to-b from-yellow-200/10 via-green-200/5 to-transparent light-ray"
+            className="absolute bg-gradient-to-b from-yellow-100/15 via-green-100/8 to-transparent enhanced-light-ray transition-all duration-1000"
             style={{
-              left: `${10 + (i * 12)}%`,
+              left: `${5 + (i * 8)}%`,
               top: '0%',
-              width: '4px',
+              width: '6px',
               height: '100%',
-              transform: `rotate(${-10 + Math.random() * 20}deg)`,
+              transform: `rotate(${-15 + Math.random() * 30}deg)`,
               transformOrigin: 'top center',
-              animationDelay: `${i * 0.5}s`,
+              animationDelay: `${i * 0.3}s`,
             }}
           />
         ))}
+      </div>
+
+      {/* Depth enhancement with realistic tree silhouettes */}
+      <div className="absolute bottom-0 left-0 right-0 pointer-events-none">
+        <div 
+          className="h-32 opacity-20 transition-all duration-1000"
+          style={{
+            backgroundImage: `url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'top center',
+            filter: `${weatherFilter} contrast(2) brightness(0.3)`
+          }}
+        />
       </div>
     </div>
   );

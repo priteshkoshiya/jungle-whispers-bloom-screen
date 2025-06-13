@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -95,33 +96,149 @@
   }
 }
 
-/* Jungle-themed animations and effects */
+/* Enhanced jungle-themed animations and effects */
 @keyframes jungle-sway {
   0%, 100% { transform: rotate(0deg) scale(1); }
-  25% { transform: rotate(2deg) scale(1.02); }
-  75% { transform: rotate(-2deg) scale(0.98); }
+  25% { transform: rotate(3deg) scale(1.03); }
+  75% { transform: rotate(-3deg) scale(0.97); }
 }
 
 @keyframes jungle-float {
   0%, 100% { transform: translateY(0px) translateX(0px); opacity: 0.4; }
-  25% { transform: translateY(-10px) translateX(5px); opacity: 0.6; }
-  50% { transform: translateY(-5px) translateX(-3px); opacity: 0.8; }
-  75% { transform: translateY(-15px) translateX(2px); opacity: 0.5; }
+  25% { transform: translateY(-15px) translateX(8px); opacity: 0.7; }
+  50% { transform: translateY(-8px) translateX(-5px); opacity: 0.9; }
+  75% { transform: translateY(-20px) translateX(3px); opacity: 0.6; }
 }
 
 @keyframes jungle-glow {
   0%, 100% { opacity: 0.3; transform: scale(1); }
-  50% { opacity: 0.8; transform: scale(1.2); }
+  50% { opacity: 0.9; transform: scale(1.3);  }
 }
 
 @keyframes jungle-pulse {
   0%, 100% { opacity: 0.6; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.05); }
+  50% { opacity: 1; transform: scale(1.08); }
 }
 
 @keyframes jungle-shimmer {
   0% { background-position: -200% 0; }
   100% { background-position: 200% 0; }
+}
+
+/* Enhanced weather animations */
+@keyframes enhanced-rain-fall {
+  0% { transform: translateY(-10px); opacity: 0.8; }
+  100% { transform: translateY(100vh); opacity: 0.3; }
+}
+
+@keyframes enhanced-snow-fall {
+  0% { 
+    transform: translateY(-10px) translateX(0px) rotate(0deg);
+    opacity: 1;
+  }
+  100% { 
+    transform: translateY(100vh) translateX(80px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes enhanced-sun-shimmer {
+  0%, 100% {
+    opacity: 0.4;
+    transform: translateY(0px) rotate(0deg) scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translateY(-15px) rotate(10deg) scale(1.1);
+  }
+}
+
+@keyframes enhanced-light-ray-dance {
+  0%, 100% {
+    opacity: 0.15;
+    transform: translateX(0px) rotate(0deg);
+  }
+  50% {
+    opacity: 0.4;
+    transform: translateX(15px) rotate(3deg);
+  }
+}
+
+@keyframes rain-splash {
+  0% {
+    transform: scale(0) rotate(0deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2) rotate(180deg);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(0.8) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes sun-glint {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.5);
+  }
+}
+
+@keyframes mist-drift {
+  0%, 100% {
+    transform: translateX(0px) translateY(0px);
+    opacity: 0.2;
+  }
+  50% {
+    transform: translateX(30px) translateY(-10px);
+    opacity: 0.4;
+  }
+}
+
+@keyframes atmosphere-pulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
+}
+
+/* Enhanced weather particle animations */
+.enhanced-rain-drop {
+  animation: enhanced-rain-fall 0.7s linear infinite;
+}
+
+.enhanced-snowflake {
+  animation: enhanced-snow-fall 6s linear infinite;
+}
+
+.enhanced-sun-ray {
+  animation: enhanced-sun-shimmer 8s ease-in-out infinite;
+}
+
+.enhanced-light-ray {
+  animation: enhanced-light-ray-dance 10s ease-in-out infinite;
+}
+
+.rain-splash {
+  animation: rain-splash 2s ease-out infinite;
+}
+
+.sun-glint {
+  animation: sun-glint 5s ease-in-out infinite;
+}
+
+.mist-particle {
+  animation: mist-drift 12s ease-in-out infinite;
 }
 
 /* Leaf animations */
@@ -141,143 +258,6 @@
 
 .jungle-glow-particle {
   animation: jungle-glow 4s ease-in-out infinite;
-}
-
-/* Background effects */
-.jungle-mist {
-  background: radial-gradient(ellipse at center, rgba(16, 185, 129, 0.1) 0%, transparent 70%);
-  animation: jungle-pulse 10s ease-in-out infinite;
-}
-
-.jungle-depth {
-  background: 
-    radial-gradient(ellipse 800px 600px at 20% 40%, rgba(34, 197, 94, 0.1) 0%, transparent 50%),
-    radial-gradient(ellipse 600px 800px at 80% 60%, rgba(16, 185, 129, 0.08) 0%, transparent 50%);
-}
-
-/* Content panel effects */
-.jungle-panel {
-  backdrop-filter: blur(20px);
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 
-    0 8px 32px rgba(0, 0, 0, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  animation: jungle-pulse 8s ease-in-out infinite;
-}
-
-.jungle-title {
-  text-shadow: 0 2px 20px rgba(16, 185, 129, 0.3);
-}
-
-.jungle-highlight {
-  background: linear-gradient(135deg, #10b981, #34d399, #6ee7b7);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: jungle-shimmer 3s ease-in-out infinite;
-  background-size: 200% auto;
-}
-
-/* CTA Button */
-.jungle-cta {
-  position: relative;
-  overflow: hidden;
-  transform: translateY(0);
-  transition: all 0.3s ease;
-}
-
-.jungle-cta:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4);
-}
-
-.jungle-cta::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.5s ease;
-}
-
-.jungle-cta:hover::before {
-  left: 100%;
-}
-
-/* Scroll hint */
-.jungle-scroll-hint {
-  animation: jungle-pulse 3s ease-in-out infinite;
-}
-
-/* Enhanced weather animations */
-@keyframes rain-fall {
-  to {
-    transform: translateY(100vh);
-  }
-}
-
-@keyframes snow-fall {
-  0% {
-    transform: translateY(-10px) translateX(0px);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(100vh) translateX(50px);
-    opacity: 0;
-  }
-}
-
-@keyframes sun-shimmer {
-  0%, 100% {
-    opacity: 0.3;
-    transform: translateY(0px) rotate(0deg);
-  }
-  50% {
-    opacity: 0.7;
-    transform: translateY(-10px) rotate(5deg);
-  }
-}
-
-@keyframes light-ray-dance {
-  0%, 100% {
-    opacity: 0.1;
-    transform: translateX(0px) rotate(0deg);
-  }
-  50% {
-    opacity: 0.3;
-    transform: translateX(10px) rotate(2deg);
-  }
-}
-
-@keyframes atmosphere-pulse {
-  0%, 100% {
-    opacity: 0.3;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.6;
-    transform: scale(1.02);
-  }
-}
-
-/* Weather particle animations */
-.rain-drop {
-  animation: rain-fall 1s linear infinite;
-}
-
-.snowflake {
-  animation: snow-fall 5s linear infinite;
-}
-
-.sun-ray {
-  animation: sun-shimmer 6s ease-in-out infinite;
-}
-
-.light-ray {
-  animation: light-ray-dance 8s ease-in-out infinite;
 }
 
 /* Real plant animations */
@@ -300,34 +280,41 @@
   animation-delay: 0.5s;
 }
 
+/* Background effects */
+.jungle-mist {
+  background: radial-gradient(ellipse at center, rgba(16, 185, 129, 0.1) 0%, transparent 70%);
+  animation: jungle-pulse 10s ease-in-out infinite;
+}
+
+.jungle-depth {
+  background: 
+    radial-gradient(ellipse 800px 600px at 20% 40%, rgba(34, 197, 94, 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse 600px 800px at 80% 60%, rgba(16, 185, 129, 0.08) 0%, transparent 50%);
+}
+
 /* Enhanced atmospheric effects */
 .jungle-atmosphere {
   background: 
-    radial-gradient(ellipse 1000px 800px at 30% 20%, rgba(34, 197, 94, 0.15) 0%, transparent 60%),
-    radial-gradient(ellipse 800px 1000px at 70% 80%, rgba(16, 185, 129, 0.12) 0%, transparent 60%),
-    radial-gradient(ellipse 600px 600px at 50% 50%, rgba(5, 150, 105, 0.08) 0%, transparent 70%);
-  animation: atmosphere-pulse 12s ease-in-out infinite;
+    radial-gradient(ellipse 1200px 900px at 30% 20%, rgba(34, 197, 94, 0.15) 0%, transparent 60%),
+    radial-gradient(ellipse 900px 1200px at 70% 80%, rgba(16, 185, 129, 0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 700px 700px at 50% 50%, rgba(5, 150, 105, 0.08) 0%, transparent 70%);
+  animation: atmosphere-pulse 15s ease-in-out infinite;
 }
 
 /* Dynamic panel enhancements */
 .dynamic-panel {
-  backdrop-filter: blur(25px);
-  background: linear-gradient(135deg, 
-    rgba(255, 255, 255, 0.15) 0%, 
-    rgba(255, 255, 255, 0.08) 50%,
-    rgba(255, 255, 255, 0.05) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(30px);
   box-shadow: 
-    0 8px 32px rgba(0, 0, 0, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.25),
-    0 0 60px rgba(16, 185, 129, 0.1);
-  animation: jungle-pulse 10s ease-in-out infinite;
+    0 12px 40px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    0 0 80px rgba(16, 185, 129, 0.15);
+  animation: jungle-pulse 12s ease-in-out infinite;
 }
 
 .dynamic-title {
   text-shadow: 
-    0 2px 20px rgba(16, 185, 129, 0.4),
-    0 0 40px rgba(16, 185, 129, 0.2);
+    0 3px 25px rgba(16, 185, 129, 0.5),
+    0 0 50px rgba(16, 185, 129, 0.3);
 }
 
 /* Enhanced CTA Button */
@@ -335,14 +322,14 @@
   position: relative;
   overflow: hidden;
   transform: translateY(0);
-  transition: all 0.4s ease;
+  transition: all 0.5s ease;
 }
 
 .enhanced-cta:hover {
-  transform: translateY(-3px);
+  transform: translateY(-4px);
   box-shadow: 
-    0 15px 40px rgba(16, 185, 129, 0.5),
-    0 0 30px rgba(16, 185, 129, 0.3);
+    0 20px 50px rgba(16, 185, 129, 0.6),
+    0 0 40px rgba(16, 185, 129, 0.4);
 }
 
 .enhanced-cta::before {
@@ -354,9 +341,9 @@
   height: 100%;
   background: linear-gradient(90deg, 
     transparent, 
-    rgba(255, 255, 255, 0.3), 
+    rgba(255, 255, 255, 0.4), 
     transparent);
-  transition: left 0.6s ease;
+  transition: left 0.8s ease;
 }
 
 .enhanced-cta:hover::before {
@@ -365,29 +352,39 @@
 
 /* Dynamic scroll hint */
 .dynamic-scroll-hint {
-  animation: jungle-pulse 4s ease-in-out infinite;
+  animation: jungle-pulse 5s ease-in-out infinite;
+}
+
+/* Jungle highlight enhancement */
+.jungle-highlight {
+  background: linear-gradient(135deg, #10b981, #34d399, #6ee7b7);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: jungle-shimmer 3s ease-in-out infinite;
+  background-size: 200% auto;
 }
 
 /* Responsive enhancements */
 @media (max-width: 640px) {
   .real-plant-1, .real-plant-2, .real-plant-3, .real-plant-4 {
-    opacity: 0.7;
-    transform: scale(0.8);
+    opacity: 0.8;
+    transform: scale(0.9);
   }
   
   .dynamic-panel {
     margin: 1rem;
     padding: 2rem 1.5rem;
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(25px);
   }
   
-  .rain-drop {
-    width: 0.25rem;
-    height: 1.5rem;
+  .enhanced-rain-drop {
+    width: 0.75px;
+    height: 12px;
   }
   
-  .snowflake {
-    width: 0.375rem;
-    height: 0.375rem;
+  .enhanced-snowflake {
+    width: 3px;
+    height: 3px;
   }
 }
